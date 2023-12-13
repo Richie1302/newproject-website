@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOTIVATIONAL QUOTES</title>
+    <style>
+        body {
+            background-image: url('WALLPAPER.jpeg');
+            background-size: cover;
+            font-family: 'Courier New', 'monospace';
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            color: #fff;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        button {
+            background-color: #33beff;
+            border: none;
+            color: white;
+            font-size: 1.25rem;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            margin-bottom: 1.5rem;
+        }
+        p {
+            font-size: 1.5rem;
+            text-align: center;
+            color: black;
+        }
+        .copy-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+        }
+        .copy-btn {
+            background-color: #333;
+            border: none;
+            color: white;
+            padding: 10px 15px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .copy-btn:hover {
+            background-color: #444;
+        }
+
+        /* Media Queries */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2rem;
+            }
+            button {
+                font-size: 1rem;
+            }
+            p {
+                font-size: 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>BiG DC MOTIVATIONAL QUOTES</h1>
+    <button onclick="generateQuote()">Generate Quotes</button>
+    <p id="quote"></p>
+
+    <div class="copy-container">
+        <button class="copy-btn" id="copy-btn">
+            <i class="fas fa-copy"></i>
+        </button>
+    </div>
+
+    <script>
+        function generateQuote() {
+            fetch('https://api.quotable.io/random')
+                .then(response => response.json())
+                .then(data => {
+                    const quote = data.content;
+                    document.getElementById("quote").innerHTML = quote;
+                })
+                .catch(error => console.error('Error fetching quote:', error));
+        }
+
+        document.getElementById('copy-btn').addEventListener('click', function () {
+            var text = document.getElementById('quote').innerText;
+            navigator.clipboard.writeText(text);
+            alert('Quote copied to clipboard!');
+        });
+    </script>
+</body>
+</html>
